@@ -1,1 +1,5 @@
---- {}
+---
+agent/buildkite-agent-linux-amd64-1.0-beta.23.450.tar.gz:
+  object_id: cc57060e-dcc7-45b6-a7b2-439492292e21
+  sha: eb4c1ef672be0db7f5f3028a9a25888dab7003d1
+  size: 2567499
