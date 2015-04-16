@@ -1,27 +1,16 @@
 meta:
   environment: (( merge ))
-  dns_root: (( merge ))
   security_groups: (( merge ))
-  persistent_disk: 4096
 
   stemcell:
     name: bosh-aws-xen-ubuntu
     version: latest
 
 jobs:
-  - name: buildkite_agent_leader_z1
-    instances: 1
-    networks:
-      - name: buildkite_agent1
-    persistent_disk: (( meta.persistent_disk ))
   - name: buildkite_agent_z1
     instances: 2
     networks:
       - name: buildkite_agent1
-    persistent_disk: (( meta.persistent_disk ))
-    properties:
-      buildkite_agent:
-        leader_address: (( "0.buildkite-agent-leader-z1.buildkite-agent1." meta.environment "." meta.dns_root ))
 
 compilation:
   cloud_properties:

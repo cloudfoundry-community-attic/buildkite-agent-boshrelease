@@ -6,6 +6,7 @@ meta:
     - buildkite_agent
   stemcell:
     name: STEMCELL
+  instances: 1
 
 director_uuid: PLACEHOLDER-DIRECTOR-UUID
 
