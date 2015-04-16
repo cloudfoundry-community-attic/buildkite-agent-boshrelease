@@ -1,6 +1,7 @@
 meta:
   environment: ~
   instances: (( merge ))
+  token: (( merge ))
 
 update:
   canaries: 0
@@ -11,11 +12,15 @@ update:
 
 jobs:
   - name: buildkite_agent_z1
-    template: buildkite-agent
+    templates:
+      - name: buildkite_agent
+        release: buildkite-agent
     instances: (( meta.instances ))
     resource_pool: small_z1
     networks: (( merge ))
 
 networks: (( merge ))
 
-properties: {}
+properties:
+  buildkite_agent:
+    token: (( meta.token ))

@@ -14,3 +14,5 @@ export DNS_ROOT=<%= spec.dns_domain_name %>
 
 # $BIND_ADDR is the IP of the first network
 export BIND_ADDR=<%= spec.networks.send(spec.networks.methods(false).first).ip %>
+
+AGENT_TOKEN="<%= p("buildkite_agent.token") %>"

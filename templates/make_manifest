@@ -1,19 +1,23 @@
 #!/bin/bash
 
-set -e
-
 template_prefix="buildkite-agent"
 STEMCELL_OS=${STEMCELL_OS:-ubuntu}
 
-infrastructure=$1
+infrastructure=$1; shift
+token=$1; shift
 
 if [ "$infrastructure" != "aws-ec2" ] && \
-    [ "$infrastructure" != "warden" ] ; then
-  echo "usage: ./make_manifest <aws-ec2|warden>"
+    [ "$infrastructure" != "warden" ]; then
+  echo "usage: ./make_manifest <aws-ec2|warden> <token>"
   exit 1
 fi
 
-shift
+if [ "${token}X" == "X" ]; then
+  echo "usage: ./make_manifest <aws-ec2|warden> <token>"
+  exit 1
+fi
+
+set -e
 
 BOSH_STATUS=$(bosh status)
 DIRECTOR_UUID=$(echo "$BOSH_STATUS" | grep UUID | awk '{print $2}')
@@ -58,6 +62,7 @@ echo $DIRECTOR_NAME $DIRECTOR_CPI $DIRECTOR_UUID $STEMCELL
 perl -pi -e "s/PLACEHOLDER-DIRECTOR-UUID/$DIRECTOR_UUID/g" $tmpdir/stub-with-uuid.yml
 perl -pi -e "s/NAME/$NAME/g" $tmpdir/stub-with-uuid.yml
 perl -pi -e "s/STEMCELL/$STEMCELL/g" $tmpdir/stub-with-uuid.yml
+perl -pi -e "s/TOKEN/$token/g" $tmpdir/stub-with-uuid.yml
 
 spiff merge \
   $templates/deployment.yml \

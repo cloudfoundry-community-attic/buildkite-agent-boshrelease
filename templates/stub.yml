@@ -1,5 +1,6 @@
 ---
 meta:
+  token: TOKEN
   environment: NAME
   dns_root: microbosh
   security_groups:

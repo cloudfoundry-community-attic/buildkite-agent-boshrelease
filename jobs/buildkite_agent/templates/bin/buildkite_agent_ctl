@@ -17,7 +17,9 @@ case $1 in
     # store pid in $PIDFILE
     echo $$ > $PIDFILE
 
-    exec chpst -u vcap:vcap buildkite_agent \
+    exec chpst -u vcap:vcap buildkite-agent start \
+      --token $AGENT_TOKEN \
+      --bootstrap-script /var/vcap/packages/buildkite-agent/bin/bootstrap.sh \
          >>$LOG_DIR/$JOB_NAME.stdout.log \
          2>>$LOG_DIR/$JOB_NAME.stderr.log
 

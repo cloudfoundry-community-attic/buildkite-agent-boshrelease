@@ -9,7 +9,7 @@ fi
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 pushd $DIR/..
-  rm -rf blobs/buildkite-agent
-  mkdir -p blobs/buildkite-agent
-  cp ${agent_path} blobs/buildkite-agent
+  rm -rf blobs/*agent
+  mkdir -p blobs/agent
+  cp ${agent_path} blobs/agent
 popd
