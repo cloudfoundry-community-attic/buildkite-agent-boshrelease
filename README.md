@@ -1,7 +1,7 @@
 Manage BuildKite worker cluster with BOSH
 =========================================
 
-If you're using BOSH, you can bootstrap, scale, resize, destroy your BuildKite cluster using this BOSH release:
+If you're using BOSH, you can bootstrap, scale, resize, destroy your [BuildKite](https://buildkite.com) cluster using this BOSH release:
 
 ![agents-running](http://cl.ly/image/161B102R311o/buildkite-agents.png)
 
