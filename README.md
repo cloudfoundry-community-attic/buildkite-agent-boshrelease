@@ -1,11 +1,22 @@
-# BOSH Release for buildkite-agent
+Manage BuildKite worker cluster with BOSH
+=========================================
 
-## Usage
+If you're using BOSH, you can bootstrap, scale, resize, destroy your BuildKite cluster using this BOSH release:
+
+![agents-running](http://cl.ly/image/161B102R311o/buildkite-agents.png)
+
+This was as simple as:
+
+```
+./templates/make_manifest warden TOKEN 3
+```
+
+Usage
+-----
 
 To use this bosh release, first upload it to your bosh:
 
 ```
-bosh target BOSH_HOST
 git clone https://github.com/cloudfoundry-community/buildkite-agent-boshrelease.git
 cd buildkite-agent-boshrelease
 bosh upload release releases/buildkite-agent-1.yml
@@ -14,38 +25,24 @@ bosh upload release releases/buildkite-agent-1.yml
 For [bosh-lite](https://github.com/cloudfoundry/bosh-lite), you can quickly create a deployment manifest & deploy a cluster:
 
 ```
-templates/make_manifest warden
+templates/make_manifest warden TOKEN 1
 bosh -n deploy
 ```
 
 For AWS EC2, create a single VM:
 
 ```
-templates/make_manifest aws-ec2
+templates/make_manifest aws-ec2 TOKEN 1
 bosh -n deploy
 ```
 
-### Override security groups
+### Resize cluster
 
-For AWS & Openstack, the default deployment assumes there is a `default` security group. If you wish to use a different security group(s) then you can pass in additional configuration when running `make_manifest` above.
-
-Create a file `my-networking.yml`:
-
-``` yaml
----
-networks:
-  - name: buildkite-agent1
-    type: dynamic
-    cloud_properties:
-      security_groups:
-        - buildkite-agent
-```
-
-Where `- buildkite-agent` means you wish to use an existing security group called `buildkite-agent`.
-
-You now suffix this file path to the `make_manifest` command:
+In the examples above, the suffix `1` is the number of nodes. Change it to scale out:
 
 ```
-templates/make_manifest openstack-nova my-networking.yml
+templates/make_manifest warden TOKEN 3
 bosh -n deploy
 ```
+
+Will add two BuildKite workers.

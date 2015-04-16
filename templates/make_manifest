@@ -5,15 +5,16 @@ STEMCELL_OS=${STEMCELL_OS:-ubuntu}
 
 infrastructure=$1; shift
 token=$1; shift
+instances=$1; shift
 
 if [ "$infrastructure" != "aws-ec2" ] && \
     [ "$infrastructure" != "warden" ]; then
-  echo "usage: ./make_manifest <aws-ec2|warden> <token>"
+  echo "usage: ./make_manifest <aws-ec2|warden> <token> <instances>"
   exit 1
 fi
 
-if [ "${token}X" == "X" ]; then
-  echo "usage: ./make_manifest <aws-ec2|warden> <token>"
+if [[ "${token}X" == "X" || "${instances}X" == "X" ]]; then
+  echo "usage: ./make_manifest <aws-ec2|warden> <token> <instances>"
   exit 1
 fi
 
@@ -63,6 +64,7 @@ perl -pi -e "s/PLACEHOLDER-DIRECTOR-UUID/$DIRECTOR_UUID/g" $tmpdir/stub-with-uui
 perl -pi -e "s/NAME/$NAME/g" $tmpdir/stub-with-uuid.yml
 perl -pi -e "s/STEMCELL/$STEMCELL/g" $tmpdir/stub-with-uuid.yml
 perl -pi -e "s/TOKEN/$token/g" $tmpdir/stub-with-uuid.yml
+perl -pi -e "s/INSTANCES/$instances/g" $tmpdir/stub-with-uuid.yml
 
 spiff merge \
   $templates/deployment.yml \
