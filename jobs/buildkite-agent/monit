@@ -1,0 +1,5 @@
+check process buildkite_agent
+  with pidfile /var/vcap/sys/run/buildkite_agent/buildkite_agent.pid
+  start program "/var/vcap/jobs/buildkite_agent/bin/monit_debugger buildkite_agent_ctl '/var/vcap/jobs/buildkite_agent/bin/buildkite_agent_ctl start'"
+  stop program "/var/vcap/jobs/buildkite_agent/bin/monit_debugger buildkite_agent_ctl '/var/vcap/jobs/buildkite_agent/bin/buildkite_agent_ctl stop'"
+  group vcap

@@ -1,0 +1,13 @@
+---
+name: buildkite-agent
+packages: []
+templates:
+  bin/monit_debugger: bin/monit_debugger
+  bin/buildkite_agent_ctl: bin/buildkite_agent_ctl
+  config/buildkite_agent.conf.erb: config/buildkite_agent.conf
+  data/properties.sh.erb: data/properties.sh
+  helpers/ctl_setup.sh: helpers/ctl_setup.sh
+  helpers/ctl_utils.sh: helpers/ctl_utils.sh
+properties:
+  buildkite_agent.leader_address:
+    description: Hostname/IP to the leader/master of the cluster
