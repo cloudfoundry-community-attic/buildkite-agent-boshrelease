@@ -19,7 +19,8 @@ To use this bosh release, first upload it to your bosh:
 ```
 git clone https://github.com/cloudfoundry-community/buildkite-agent-boshrelease.git
 cd buildkite-agent-boshrelease
-bosh upload release releases/buildkite-agent-1.yml
+bosh create release
+bosh upload release
 ```
 
 For [bosh-lite](https://github.com/cloudfoundry/bosh-lite), you can quickly create a deployment manifest & deploy a cluster:
